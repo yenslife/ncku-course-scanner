@@ -1,0 +1,39 @@
+name: Scan course
+on:
+  # push:
+  #   branches:
+  #     - main
+  schedule:
+    - cron: 0 0 * * * # 每天早上 8 點
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      LANG: zh_TW.UTF-8
+      LC_ALL: zh_TW.UTF-8
+    steps:
+      - name: Checkout code # clone this repo
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+                
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        
+      - name: Install xvfb # 參考MarketingPipeline/Python-Selenium-Action
+        run: sudo apt-get install xvfb
+            
+      - name: spider script
+        run: |
+          python spider.py
+      - name: Create Issue
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: 自動查詢課表
+          content-filepath: query_result.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
