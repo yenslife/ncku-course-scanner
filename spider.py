@@ -131,10 +131,11 @@ import os
 
 GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
 EMAIL = os.environ['EMAIL']
+TO_EMAIL = os.environ['TO_EMAIL']
 
 msg=email.message.EmailMessage()
-msg["From"] = "77geo5rge6@gmail.com"
-msg["To"]=input("請輸入email: ")
+msg["From"] = EMAIL
+msg["To"]= TO_EMAIL #input("請輸入email: ")
 
 verify_code = ''.join(map(str, random.sample(range(0, 9), 6)))
 print("生成的驗證碼：", verify_code)
