@@ -1,0 +1,63 @@
+name: register email and course
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # 接收使用者的 input: key, email, 想查詢的課程
+    inputs:
+      key:
+        description: 'TOKEN key'
+        required: true
+      email:
+        description: 'Your email'
+        required: true
+      course:
+        description: 'Course name'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      LANG: zh_TW.UTF-8
+      LC_ALL: zh_TW.UTF-8
+    steps:
+      - name: Checkout code # clone this repo
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+                
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+         
+      - name: Install xvfb # 參考MarketingPipeline/Python-Selenium-Action
+        run: sudo apt-get install xvfb
+            
+      - name: register script
+        env:
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          REGISTER_EMAIL: ${{ github.event.inputs.email }}
+          REGISTER_COURSE: ${{ github.event.inputs.course }}
+          TOKEN: ${{ github.event.inputs.key }}
+          FERNET_KEY: ${{ secrets.FERNET_KEY }}
+        run: |
+          python register.py
+
+      - name: Update file in repository       
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.createOrUpdateFile({
+              owner: github.repository_owner,
+              repo: github.repository_name,
+              path: 'perferences.json',
+              content: fs.readFileSync('perferences.json', 'utf8'),
+              message: 'Update perferences.json',
+              branch: 'main'
+            })
