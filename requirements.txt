@@ -1,0 +1,7 @@
+rich
+selenium
+beautifulsoup4
+requests
+lxml
+pyvirtualdisplay
+chromedriver-autoinstaller
