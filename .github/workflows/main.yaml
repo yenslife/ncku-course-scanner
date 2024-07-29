@@ -5,8 +5,17 @@ on:
       - main
   schedule:
     - cron: 0 0 * * * # 每天早上 8 點
-  workflow: # 接收使用者的 input: key, email, 想查詢的課程
-    types: [opened]
+  workflow_dispatch: # 接收使用者的 input: key, email, 想查詢的課程
+    - inputs:
+        key:
+          description: 'TOKEN key'
+          required: true
+        email:
+          description: 'Your email'
+          required: true
+        course:
+          description: 'Course name'
+          required: true
 
 jobs:
   build:
