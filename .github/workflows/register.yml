@@ -38,7 +38,7 @@ jobs:
       - name: Install xvfb # 參考MarketingPipeline/Python-Selenium-Action
         run: sudo apt-get install xvfb
             
-      - name: register script
+      - name: register script and generate JSON
         env:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           REGISTER_EMAIL: ${{ github.event.inputs.email }}
@@ -48,16 +48,10 @@ jobs:
         run: |
           python register.py
 
-      - name: Update file in repository       
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.issues.createOrUpdateFile({
-              owner: github.repository_owner,
-              repo: github.repository_name,
-              path: 'perferences.json',
-              content: fs.readFileSync('perferences.json', 'utf8'),
-              message: 'Update perferences.json',
-              branch: 'main'
-            })
+      - name: Update file in repository
+        run:
+          git config --global user.name 'yenslife'
+          git config --global user.email '${{ secrets.EMAIL }}'
+          git add preferences.json
+          git commit -m 'Update perferences.json'
+          git push
