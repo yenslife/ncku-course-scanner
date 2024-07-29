@@ -123,3 +123,25 @@ print(markdown_table_format(query_result))
 
 with open("query_result.txt", "w", encoding="utf-8") as f:
     f.write(markdown_table_format(query_result))
+
+import random
+import email.message
+import smtplib
+import os
+
+GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
+EMAIL = os.environ['EMAIL']
+
+msg=email.message.EmailMessage()
+msg["From"] = "77geo5rge6@gmail.com"
+msg["To"]=input("請輸入email: ")
+
+verify_code = ''.join(map(str, random.sample(range(0, 9), 6)))
+print("生成的驗證碼：", verify_code)
+
+msg["Subject"]=f"驗證碼為:{verify_code}"
+
+server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
+server.login(EMAIL, GOOGLE_CLIENT_SECRET)
+server.send_message(msg)
+server.close()
