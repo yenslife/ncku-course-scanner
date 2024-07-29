@@ -5,3 +5,4 @@ requests
 lxml
 pyvirtualdisplay
 chromedriver-autoinstaller
+secure-smtplib # for sending email
