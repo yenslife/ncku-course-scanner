@@ -1,10 +1,10 @@
 name: Scan course
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   schedule:
-    - cron: 5 8 * * * # 台灣時間要 + 8 小時
+    - cron: 0 0 * * * # 每天早上 8 點
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,8 +29,12 @@ jobs:
         run: sudo apt-get install xvfb
             
       - name: spider script
+        env:
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          EMAIL: ${{ secrets.EMAIL }}
         run: |
           python spider.py
+
       - name: Create Issue
         uses: peter-evans/create-issue-from-file@v5
         with:
