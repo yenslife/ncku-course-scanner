@@ -137,12 +137,12 @@ with open("query_result.txt", "w", encoding="utf-8") as f:
 # msg["From"] = EMAIL
 # msg["To"]= TO_EMAIL #input("請輸入email: ")
 
-verify_code = ''.join(map(str, random.sample(range(0, 9), 6)))
-print("生成的驗證碼：", verify_code)
+# verify_code = ''.join(map(str, random.sample(range(0, 9), 6)))
+# print("生成的驗證碼：", verify_code)
 
-msg["Subject"]=f"驗證碼為:{verify_code}"
+# msg["Subject"]=f"驗證碼為:{verify_code}"
 
-server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
-server.login(EMAIL, GOOGLE_CLIENT_SECRET)
-server.send_message(msg)
-server.close()
+# server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
+# server.login(EMAIL, GOOGLE_CLIENT_SECRET)
+# server.send_message(msg)
+# server.close()
