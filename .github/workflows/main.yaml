@@ -4,7 +4,7 @@ on:
   #   branches:
   #     - main
   schedule:
-    - cron: 6 0 * * * # 每天早上 8 點
+    - cron: 5 10 * * * 
 jobs:
   build:
     runs-on: ubuntu-latest
