@@ -27,6 +27,9 @@ jobs:
         
       - name: Install xvfb # 參考MarketingPipeline/Python-Selenium-Action
         run: sudo apt-get install xvfb
+
+      - name: Input email and key
+        run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
             
       - name: spider script
         env:
