@@ -124,18 +124,18 @@ print(markdown_table_format(query_result))
 with open("query_result.txt", "w", encoding="utf-8") as f:
     f.write(markdown_table_format(query_result))
 
-import random
-import email.message
-import smtplib
-import os
+# import random
+# import email.message
+# import smtplib
+# import os
 
-GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
-EMAIL = os.environ['EMAIL']
-TO_EMAIL = os.environ['TO_EMAIL']
+# GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
+# EMAIL = os.environ['EMAIL']
+# TO_EMAIL = os.environ['TO_EMAIL']
 
-msg=email.message.EmailMessage()
-msg["From"] = EMAIL
-msg["To"]= TO_EMAIL #input("請輸入email: ")
+# msg=email.message.EmailMessage()
+# msg["From"] = EMAIL
+# msg["To"]= TO_EMAIL #input("請輸入email: ")
 
 verify_code = ''.join(map(str, random.sample(range(0, 9), 6)))
 print("生成的驗證碼：", verify_code)
