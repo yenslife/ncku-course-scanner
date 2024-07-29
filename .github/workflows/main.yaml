@@ -5,6 +5,9 @@ on:
       - main
   schedule:
     - cron: 0 0 * * * # 每天早上 8 點
+  workflow: # 接收使用者的 input: key, email, 想查詢的課程
+    types: [opened]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,15 +30,11 @@ jobs:
         
       - name: Install xvfb # 參考MarketingPipeline/Python-Selenium-Action
         run: sudo apt-get install xvfb
-
-      - name: Input email and key
-        run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
             
       - name: spider script
         env:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           EMAIL: ${{ secrets.EMAIL }}
-          TO_EMAIL: ${{ secrets.TO_EMAIL }}
         run: |
           python spider.py
 
