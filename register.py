@@ -2,7 +2,7 @@ import os
 import json
 from cryptography.fernet import Fernet
 
-# Create a Fernet key for encryption
+# Create a Fernet key for encryption 
 # fernet_key = Fernet.generate_key()
 # print(fernet_key)
 fernet_key = os.environ['FERNET_KEY'].encode()
