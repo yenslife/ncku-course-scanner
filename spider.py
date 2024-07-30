@@ -117,11 +117,11 @@ def markdown_table_format(data):
   
 def sending_email(to_email, content):
     # msg=email.message.EmailMessage()
-    msg=MIMEText(content, "plain", "utf-8")
+    msg = MIMEText(content,'plain','utf-8').as_string()
     msg["From"] = EMAIL
     msg["To"] = to_email
     msg["Subject"]= '你的課程有餘額！'
-    mime=MIMEText("你好世界 hollo world!", "plain", "utf-8")
+    msg = msg.as_string()
     server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.login(EMAIL, GOOGLE_CLIENT_SECRET)
     server.send_message(msg)
