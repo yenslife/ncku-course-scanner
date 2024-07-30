@@ -12,6 +12,7 @@ from rich import print
 import chromedriver_autoinstaller
 from pyvirtualdisplay import Display # 用來在沒有 GUI 的環境下執行 Selenium，會需要安裝 xvfb，所以只能在 Linux 上執行
 import email.message
+from email.mime.text import MIMEText
 import smtplib
 
 from query import query_name, query_id, query_dept, limit_dept
@@ -115,10 +116,12 @@ def markdown_table_format(data):
     return table
   
 def sending_email(to_email, content):
-    msg=email.message.EmailMessage()
+    # msg=email.message.EmailMessage()
+    msg=MIMEText(content, "plain", "utf-8")
     msg["From"] = EMAIL
     msg["To"] = to_email
-    msg["Subject"]= content
+    msg["Subject"]= '你的課程有餘額！'
+    mime=MIMEText("你好世界 hollo world!", "plain", "utf-8")
     server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.login(EMAIL, GOOGLE_CLIENT_SECRET)
     server.send_message(msg)
