@@ -4,11 +4,13 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
-import json
 from rich import print
 import chromedriver_autoinstaller
 from pyvirtualdisplay import Display # 用來在沒有 GUI 的環境下執行 Selenium，會需要安裝 xvfb，所以只能在 Linux 上執行
+
+import time
+import json
+import os
 
 from query import query_name, query_id, query_dept, limit_dept
 from register import retrieve_preferences
