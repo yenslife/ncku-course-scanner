@@ -134,54 +134,13 @@ for account in waiting_list:
     to_email = account['email']
     query_result = []
     for course in data:
-    for query_course in course_preferences:
-        if is_ids(query_course) and query_course in course['系號-序號']:
-            query_result.append(course)
-            continue
-        if query_course in course['科目名稱']:
-            query_result.append(course)
+        for query_course in course_preferences:
+            if is_ids(query_course) and query_course in course['系號-序號']:
+                query_result.append(course)
+                continue
+            if query_course in course['科目名稱']:
+                query_result.append(course)
     # if ✅ sending email
     md_result = markdown_table_format(query_result)
-    if ✅ in md_result:
+    if '✅' in md_result:
         sending_email(to_email, md_result)
-
-# 修改 query.py 選擇你想要查詢的課程序號，檢查有沒有餘額
-# query_result = []
-# for course in data:
-#     for id in query_id:
-#         if id in course['系號-序號']:
-#             query_result.append(course)
-#     for name in query_name:
-#         if name in course['科目名稱']:
-#             query_result.append(course)
-
-# with open("query_result.json", "w", encoding="utf-8") as f:
-#     json.dump(query_result, f, ensure_ascii=False, indent=4)
-
-# print(markdown_table_format(query_result))
-
-# with open("query_result.txt", "w", encoding="utf-8") as f:
-#     f.write(markdown_table_format(query_result))
-
-# import random
-# import email.message
-# import smtplib
-# import os
-
-# GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
-# EMAIL = os.environ['EMAIL']
-# TO_EMAIL = os.environ['TO_EMAIL']
-
-# msg=email.message.EmailMessage()
-# msg["From"] = EMAIL
-# msg["To"]= TO_EMAIL #input("請輸入email: ")
-
-# verify_code = ''.join(map(str, random.sample(range(0, 9), 6)))
-# print("生成的驗證碼：", verify_code)
-
-# msg["Subject"]=f"驗證碼為:{verify_code}"
-
-# server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
-# server.login(EMAIL, GOOGLE_CLIENT_SECRET)
-# server.send_message(msg)
-# server.close()
