@@ -44,8 +44,9 @@ def retrieve_preferences():
 
 # Example usage
 register_email = os.environ['REGISTER_EMAIL']
-COURSE_NAME = os.environ['COURSE_NAME']
+COURSE_NAME = os.environ['REGISTER_COURSE']
 course_list = COURSE_NAME.replace(' ', '').split(',')
+print(f'course list: {course_list}')
 store_preferences('example@example.com', course_list)
 # preferences = retrieve_preferences()
 # print(preferences)  # Output: [{'email': 'example@example.com', 'course_preferences': ['Course A', 'Course B'] }]
