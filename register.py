@@ -6,6 +6,9 @@ from cryptography.fernet import Fernet
 # fernet_key = Fernet.generate_key()
 # print(fernet_key)
 fernet_key = os.environ['FERNET_KEY'].encode()
+input_token = os.environ['INPUT_TOKEN']
+token = os.environ['TOKEN']
+
 # Store the Fernet key as a secret in your GitHub repository
 
 # Define a function to store email addresses and course preferences
@@ -46,7 +49,10 @@ def retrieve_preferences():
     return preferences
 
 if __name__ == '__main__':
-    register_email = os.environ['REGISTER_EMAIL']
-    course_name = os.environ['REGISTER_COURSE']
-    course_list = [course.strip() for course in course_name.replace(' ', '').split(',')]
-    store_preferences(register_email, course_list) # 存到 JSON 檔
+    if token == input_token:
+        register_email = os.environ['REGISTER_EMAIL']
+        course_name = os.environ['REGISTER_COURSE']
+        course_list = [course.strip() for course in course_name.replace(' ', '').split(',')]
+        store_preferences(register_email, course_list) # 存到 JSON 檔
+    else:
+        print(f"token {input_token} 錯誤，請找海狸大師處理！")
