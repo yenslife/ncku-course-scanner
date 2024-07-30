@@ -37,8 +37,11 @@ def retrieve_preferences():
     # Decrypt the payloads using Fernet
     preferences = []
     for encrypted_payload in encrypted_payloads:
-        decrypted_payload = cipher_suite.decrypt(encrypted_payload.encode())
-        preferences.append(json.loads(decrypted_payload.decode()))
+        try:
+            decrypted_payload = cipher_suite.decrypt(encrypted_payload.encode())
+            preferences.append(json.loads(decrypted_payload.decode()))
+        except:
+            print(f"錯誤的行: {encrypted_payload}")
 
     return preferences
 
