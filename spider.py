@@ -117,7 +117,7 @@ def markdown_table_format(data):
   
 def sending_email(to_email, content):
     # msg=email.message.EmailMessage()
-    msg = MIMEText(content,'plain','utf-8').as_string()
+    msg = MIMEText(content,'plain','utf-8')
     msg["From"] = EMAIL
     msg["To"] = to_email
     msg["Subject"]= '你的課程有餘額！'
