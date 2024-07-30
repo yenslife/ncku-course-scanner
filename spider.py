@@ -121,10 +121,12 @@ def sending_email(to_email, content):
     msg["From"] = EMAIL
     msg["To"] = to_email
     msg["Subject"]= '你的課程有餘額！'
-    msg = msg.as_string()
+    # msg = msg.as_string()
+    msg_as_string = msg.as_string()
     server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.login(EMAIL, GOOGLE_CLIENT_SECRET)
-    server.send_message(msg)
+    server.sendemail(EMAIL, to_email, msg_as_string)
+    # server.send_message(msg)
     server.close()
 
 def is_ids(s):
