@@ -11,6 +11,10 @@ import chromedriver_autoinstaller
 from pyvirtualdisplay import Display # 用來在沒有 GUI 的環境下執行 Selenium，會需要安裝 xvfb，所以只能在 Linux 上執行
 
 from query import query_name, query_id, query_dept, limit_dept
+from register import retrieve_preferences
+
+GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
+EMAIL = os.environ['EMAIL']
 
 # 若在 Linux 上執行，需要使用 pyvirtualdisplay 來模擬 GUI 環境，不用的話可以註解掉
 display = Display(visible=0, size=(800, 800)) 
@@ -88,19 +92,6 @@ for index, course in enumerate(course_list):
 # 關閉瀏覽器
 driver.quit()
 
-# 修改 query.py 選擇你想要查詢的課程序號，檢查有沒有餘額
-query_result = []
-for course in data:
-    for id in query_id:
-        if id in course['系號-序號']:
-            query_result.append(course)
-    for name in query_name:
-        if name in course['科目名稱']:
-            query_result.append(course)
-
-with open("query_result.json", "w", encoding="utf-8") as f:
-    json.dump(query_result, f, ensure_ascii=False, indent=4)
-
 def markdown_table_format(data):
     if len(data) == 0:
         return "沒有找到課程"
@@ -118,11 +109,59 @@ def markdown_table_format(data):
             table += f"{v}|"
         table += "\n"
     return table
+  
+def sending_email(to_email, content):
+    msg=email.message.EmailMessage()
+    msg["From"] = EMAIL
+    msg["To"] = to_email
+    msg["Subject"]= content
+    server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
+    server.login(EMAIL, GOOGLE_CLIENT_SECRET)
+    server.send_message(msg)
+    server.close()
 
-print(markdown_table_format(query_result))
+def is_ids(s):
+    for ch in s:
+        if not 'A' <= ch <= 'Z' and not 'a' <= ch <= 'z':
+          return False
+    return True
 
-with open("query_result.txt", "w", encoding="utf-8") as f:
-    f.write(markdown_table_format(query_result))
+# 取得名單
+waiting_list = retrieve_preferences()
+
+for account in waiting_list:
+    course_preferences = account['course_preferences']
+    to_email = account['email']
+    query_result = []
+    for course in data:
+    for query_course in course_preferences:
+        if is_ids(query_course) and query_course in course['系號-序號']:
+            query_result.append(course)
+            continue
+        if query_course in course['科目名稱']:
+            query_result.append(course)
+    # if ✅ sending email
+    md_result = markdown_table_format(query_result)
+    if ✅ in md_result:
+        sending_email(to_email, md_result)
+
+# 修改 query.py 選擇你想要查詢的課程序號，檢查有沒有餘額
+# query_result = []
+# for course in data:
+#     for id in query_id:
+#         if id in course['系號-序號']:
+#             query_result.append(course)
+#     for name in query_name:
+#         if name in course['科目名稱']:
+#             query_result.append(course)
+
+# with open("query_result.json", "w", encoding="utf-8") as f:
+#     json.dump(query_result, f, ensure_ascii=False, indent=4)
+
+# print(markdown_table_format(query_result))
+
+# with open("query_result.txt", "w", encoding="utf-8") as f:
+#     f.write(markdown_table_format(query_result))
 
 # import random
 # import email.message
