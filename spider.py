@@ -125,7 +125,10 @@ def sending_email(to_email, content):
     msg_as_string = msg.as_string()
     server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.login(EMAIL, GOOGLE_CLIENT_SECRET)
-    server.sendmail(EMAIL, to_email, msg_as_string)
+    try:
+        server.sendmail(EMAIL, to_email, msg_as_string)
+    except:
+        print(f"email 錯誤: {to_email})
     # server.send_message(msg)
     server.close()
 
