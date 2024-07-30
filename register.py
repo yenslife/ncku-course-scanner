@@ -42,11 +42,8 @@ def retrieve_preferences():
 
     return preferences
 
-# Example usage
-register_email = os.environ['REGISTER_EMAIL']
-COURSE_NAME = os.environ['REGISTER_COURSE']
-course_list = COURSE_NAME.replace(' ', '').split(',')
-print(f'course list: {course_list}')
-store_preferences('example@example.com', course_list)
-# preferences = retrieve_preferences()
-# print(preferences)  # Output: [{'email': 'example@example.com', 'course_preferences': ['Course A', 'Course B'] }]
+if __name__ == '__main__':
+    register_email = os.environ['REGISTER_EMAIL']
+    course_name = os.environ['REGISTER_COURSE']
+    course_list = [course.strip() for course in course_name.replace(' ', '').split(',')]
+    store_preferences(register_email, course_list) # 存到 JSON 檔
