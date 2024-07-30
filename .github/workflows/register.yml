@@ -1,8 +1,5 @@
 name: register email and course
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch: # 接收使用者的 input: key, email, 想查詢的課程
     inputs:
       key:
