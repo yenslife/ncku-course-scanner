@@ -44,6 +44,7 @@ jobs:
         env:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           EMAIL: ${{ secrets.EMAIL }}
+          FERNET_KEY: ${{ secrets.FERNET_KEY }}
         run: |
           python spider.py
 
