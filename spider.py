@@ -125,7 +125,7 @@ def sending_email(to_email, content):
     msg_as_string = msg.as_string()
     server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.login(EMAIL, GOOGLE_CLIENT_SECRET)
-    server.sendemail(EMAIL, to_email, msg_as_string)
+    server.sendmail(EMAIL, to_email, msg_as_string)
     # server.send_message(msg)
     server.close()
 
