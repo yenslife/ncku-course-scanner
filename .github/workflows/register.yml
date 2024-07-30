@@ -40,8 +40,9 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           REGISTER_EMAIL: ${{ github.event.inputs.email }}
           REGISTER_COURSE: ${{ github.event.inputs.course }}
-          TOKEN: ${{ github.event.inputs.key }}
+          INPUT_TOKEN: ${{ github.event.inputs.key }}
           FERNET_KEY: ${{ secrets.FERNET_KEY }}
+          TOKEN: ${{ secrets.TOKEN }}
         run: |
           python register.py
 
