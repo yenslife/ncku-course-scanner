@@ -128,7 +128,7 @@ def sending_email(to_email, content):
     try:
         server.sendmail(EMAIL, to_email, msg_as_string)
     except:
-        print(f"email 錯誤: {to_email})
+        print(f"email 錯誤: {to_email}")
     # server.send_message(msg)
     server.close()
 
