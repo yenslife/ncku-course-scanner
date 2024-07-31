@@ -4,7 +4,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: 0 1 * * * # 每天早上 8 點
+    - cron: 0 0 * * * # 每天早上 8 點
   workflow_dispatch: # 接收使用者的 input: key, email, 想查詢的課程
     inputs:
       key:
