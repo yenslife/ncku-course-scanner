@@ -45,6 +45,7 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           EMAIL: ${{ secrets.EMAIL }}
           FERNET_KEY: ${{ secrets.FERNET_KEY }}
+          INPUT_TOKEN: ${{ github.event.inputs.key }}
         run: |
           python spider.py
 
