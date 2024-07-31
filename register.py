@@ -1,6 +1,6 @@
 import os
 import json
-from cryptography.fernet import Fernet 
+from cryptography.fernet import Fernet
 
 # Create a Fernet key for encryption 
 # fernet_key = Fernet.generate_key()
