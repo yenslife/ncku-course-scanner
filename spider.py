@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC 
+from selenium.webdriver.support import expected_conditions as EC
 from rich import print
 import chromedriver_autoinstaller
 from pyvirtualdisplay import Display # 用來在沒有 GUI 的環境下執行 Selenium，會需要安裝 xvfb，所以只能在 Linux 上執行
