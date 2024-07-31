@@ -149,10 +149,10 @@ for account in waiting_list:
     for course in data:
         for query_course in course_preferences:
             if is_ids(query_course) and query_course in course['系號-序號']:
-                query_result.append(query_course)
+                query_result.append(course)
                 continue
             if query_course in course['科目名稱']:
-                query_result.append(query_course)
+                query_result.append(course)
               
     # if ✅ sending email
     md_result = markdown_table_format(query_result)
