@@ -140,6 +140,7 @@ def is_ids(s):
 
 # 取得名單
 waiting_list = retrieve_preferences()
+print(waiting_list)
 
 for account in waiting_list:
     course_preferences = account['course_preferences']
