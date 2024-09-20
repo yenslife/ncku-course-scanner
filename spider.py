@@ -120,7 +120,8 @@ def sending_email(to_email, content):
     msg = MIMEText(content,'plain','utf-8')
     msg["From"] = EMAIL
     msg["To"] = to_email
-    msg["Subject"]= '你的課程有餘額！'
+    # msg["Subject"]= '你的課程有餘額！'
+    msg["Subject"]= '記得起床讀書！不要再混了'
     # msg = msg.as_string()
     msg_as_string = msg.as_string()
     server=smtplib.SMTP_SSL("smtp.gmail.com", 465)
